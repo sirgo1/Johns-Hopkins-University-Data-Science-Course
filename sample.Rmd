@@ -1,0 +1,77 @@
+---
+title: "Learning Loop Functions"
+author: "Godwin Osuji"
+date: "12/17/2021"
+output: word_document
+---
+# Simple lapply function
+
+```{r}
+x <- list(a = 1:5, b = rnorm(10))
+mean_ab <- lapply(x, mean)
+mean_ab
+```
+
+# Complicated lapply function
+
+```{r}
+y <- list(a = 1:5, b = rnorm(10), c = rnorm(20,1), d = rnorm(100,5))
+mean_abcd <- lapply(y, mean)
+mean_abcd
+x <- 1:4
+lapply(x, runif)
+lapply(x, runif, min = 0, max = 10)
+x <- list(a = matrix(1:4, 2,2), b = matrix(1:6, 3,2))
+lapply(x, function(elt) elt[,1])
+```
+
+
+# Sapply Function
+
+while **lapply** returns list, **sapply** tries to simplify the result by returning a vector. If there is not way about it then it would return the list.
+**runif** returns random numbers
+
+```{r}
+x <- 1:4
+runif(4, max = 3) #four random numbers with maximum of 3
+lapply(x, runif)
+lapply(y, mean)
+sapply(x, runif)
+sapply(y, mean)
+```
+
+# Mean of the rows
+```{r}
+x <- matrix(rnorm(200), 20, 10)
+apply(x, 1, mean)
+rowMeans(matrix(1:10, 5,2))
+```
+
+# Mean of the column
+```{r}
+x <- matrix(rnorm(200), 20, 10)
+apply(x, 2, mean)
+colMeans(matrix(1:10, 5,2))  
+```
+
+# Using apply to calculate quantile on the rows of a matrix
+```{r}
+x <- matrix(rnorm(200), 20, 10)
+apply(x, 1, quantile, probs = c(0.25, 0.75))
+```
+# Using apply to calculate the average & sum in an array
+
+```{r}
+y <- array(rnorm(2*2*10), c(2,2,10))
+apply(y, c(1,2,3), mean)
+apply(y, 1, mean)
+apply(y, c(1,2), sum)
+rowMeans(y, dims = 1)
+```
+# mapply 
+**mapply** can be apply on multiple lists unlike **lapply** and **sapply**
+```{r}
+list(rep(1,4), rep(2,3), rep(3,2), rep(4,1))#instead of this, you could use mapply
+mapply(rep, 1:4, c(4,3,2,1)) #Or
+mapply(rep, 1:4, 4:1)
+```
