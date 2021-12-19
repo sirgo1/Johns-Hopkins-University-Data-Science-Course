@@ -74,4 +74,33 @@ rowMeans(y, dims = 1)
 list(rep(1,4), rep(2,3), rep(3,2), rep(4,1))#instead of this, you could use mapply
 mapply(rep, 1:4, c(4,3,2,1)) #Or
 mapply(rep, 1:4, 4:1)
+noise <-function(n,mean,sd){
+  rnorm(n,mean,sd)
+}
+mapply(noise, 1:5, 1:5, 2) #or
+list(noise(1,1,2),noise(2,2,2),noise(3,3,2),noise(4,4,2))
+```
+# using tapply function
+```{r}
+x <- c(rnorm(10), runif(10), rnorm(10,1))
+y <- gl(6,5)
+tapply(x,y,mean)
+```
+# Split function on a data frame.
+The **split function** is actually not a loop function. I need to pay more attention to how the anonymous function is applied here.  
+
+```{r}
+s <- split(airquality, airquality$Month) # it converts the Month variable to a factor automatically here.
+lapply(s, function(x) colMeans(x[,c("Ozone", "Solar.R", "Wind", "Temp")], na.rm = TRUE))  # more attention on using anonymous function
+
+sapply(s, function(x) colMeans(x[,c("Ozone", "Solar.R", "Wind", "Temp")], na.rm = TRUE))  #it will return a more simplified result; matrix.
+```
+
+```{r}
+f1<-gl(2,5)
+f2<-gl(5,2)
+interaction(f1,f2)
+x<-rnorm(10)
+split(x, list(f1,f2))
+split(x, list(f1,f2), drop = TRUE)
 ```
