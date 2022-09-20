@@ -1,0 +1,9 @@
+---
+title: "Data Scientist's Toolbox Certificate"
+output: word_document
+---
+
+
+
+ <https://coursera.org/share/0887c0e22158878cd67e642861cfb185>.
+
